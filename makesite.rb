@@ -49,7 +49,7 @@ puts <<doc
         <div class="span-one-third">
         <ul id="linkspam">
           <li><a rel="author" href="https://profiles.google.com/BarnabaTurek"> <img src="http://www.google.com/images/icons/ui/gprofile_button-44.png" width="36" height="36"> </a></li>
-          <li><a rel="author" href="www.reddit.com/r/barnaba"> <img src="http://www.reddit.com/static/blog_snoo.gif" width="36" height="49"> </a></li>
+          <li><a rel="author" href="http://www.reddit.com/r/barnaba"> <img src="http://www.reddit.com/static/blog_snoo.gif" width="36" height="49"> </a></li>
           <li><a href="http://www.twitter.com/barnex"><img src="http://twitter-badges.s3.amazonaws.com/t_logo-c.png" alt="Follow barnex on Twitter"/></a></li>
         </ul>
         </div>
