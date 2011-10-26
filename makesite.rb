@@ -49,6 +49,10 @@ puts <<doc
       margin-right: 1em;
     }
 
+    li {
+      line-height: 1.8em;
+    }
+
     #linkspam li {
       background-position: 100% .4em;
       padding-right: .6em;
@@ -68,7 +72,6 @@ puts <<doc
         <div class="span-one-third">
           <h1 class="centered">Barnaba Turek</h1>
           <h2> <a href="http://github.com/barnaba">My projects</a> </h1>
-          <ul>
           #{project_list.join("\n")}
           </ul>
         </div>
