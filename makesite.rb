@@ -4,19 +4,31 @@ require 'ruby-debug'
   
 agent = Mechanize.new
 page = agent.get('http://github.com/barnaba')
-projects = page.search('.public.source h3 a')
-project_list =  ''
+projects = page.search('.public')
+project_list =  []
 once = true
-projects.each do |p|
+projects.each do |project|
+  p = project.search('h3 a').first
   name, href = p.text, p.attributes['href']
   next if name == "barnaba.github.com"
+  project_link = ''
+  project_link += " <a href=\"http://github.com#{href}\">#{name}</a>"
 
   if once 
     once = false
-    project_list += "<li> <a href=\"http://github.com#{href}\">#{name}</a> <span class=\"label success\">New</span> "
-  else 
-    project_list += "<li> <a href=\"http://github.com#{href}\">#{name}</a>"
+    project_link += ' <span class="label success">New</span>'
   end
+
+  if project.attributes['class'].text =~ /fork/
+    project_link += ' <span class="label warning">Fork</span>'
+  end
+
+  description = project.search('.description').first
+  unless description.nil?
+    project_link += " <span class=\"description\">#{description.text}</span>"
+  end
+
+  project_list << "<li> #{project_link} </li>"
 end
 
 puts <<doc
@@ -44,7 +56,6 @@ puts <<doc
     </style>
   </head>
   <body>
-    <ul>
     <div class="container">
         <div class="span-one-third">
         <ul id="linkspam">
@@ -57,11 +68,12 @@ puts <<doc
         <div class="span-one-third">
           <h1 class="centered">Barnaba Turek</h1>
           <h2> <a href="http://github.com/barnaba">My projects</a> </h1>
-          #{project_list}
+          <ul>
+          #{project_list.join("\n")}
+          </ul>
         </div>
       </div>
     </div>
-    </ul>
   </body>
 </html>
 doc
