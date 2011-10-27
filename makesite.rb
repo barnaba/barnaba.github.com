@@ -1,7 +1,8 @@
 require 'rubygems'
-require 'mechanize'
 require 'erb'
 require 'ruby-debug'
+require 'wrest'
+require 'yaml'
 
 class Project
   attr_accessor :url, :title, :description, :is_fork, :anchor
@@ -18,11 +19,22 @@ class Project
     puts [@url, @title, @description, @is_fork].join " | "
   end
 end
+
+class SiteConfig
+  def initialize(path)
+    config = YAML.load_file(path)
+    config.each do |key, value| 
+      instance_variable_set("@#{key}", value)
+      self.class.__send__(:attr_accessor, key)
+    end
+  end
+end
+
+config = SiteConfig.new('site.yml')
   
-agent = Mechanize.new
-page = agent.get('http://github.com/barnaba')
-projects = page.search('.public').map { |elem| Project.new(elem) }
-projects = projects.select { |p| p.title != 'barnaba.github.com' }
+projects = ('http://github.com/api/v2/json/repos/show/barnaba'.to_uri.get.deserialise)['repositories']
+projects.sort! {|a, b| Date.parse(b['pushed_at']) - Date.parse(a['pushed_at'])}
+projects = projects.select { |p| not config.ignored.include? p['name'] }
 
 content = File.read('index.html.erb')
 template = ERB.new(content)

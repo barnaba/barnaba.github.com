@@ -10,35 +10,41 @@
   <body>
     <div class="container">
         <div class="span-one-third">
-        <ul id="linkspam">
-          <li><a rel="author" href="https://profiles.google.com/BarnabaTurek"> <img src="http://www.google.com/images/icons/ui/gprofile_button-44.png" width="36" height="36"> </a></li>
-          <li><a rel="author" href="http://www.reddit.com/r/barnaba"> <img src="http://www.reddit.com/static/blog_snoo.gif" width="36" height="49"> </a></li>
-          <li><a href="http://www.twitter.com/barnex"><img src="http://twitter-badges.s3.amazonaws.com/t_logo-c.png" alt="Follow barnex on Twitter"/></a></li>
-        </ul>
+          <% unless config.buttons.nil? %>
+            <ul id="linkspam">
+              <% config.buttons.each do |button| %>
+                <li><%= button %></li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       <div class="row">
         <div class="span-one-third">
-          <a href="http://github.com/barnaba"><h1 class="centered">Barnaba Turek</h1> </a> 
+          <a href="<%= config.repo %>"><h1 class="centered"><%= config.fullname %></h1> </a> 
           <h2> My projects</h1>
           <ul>
           <% projects.each do |project| %>
             <li>
-              <%= project.anchor%> 
-              <% if project == projects.first %>
+            <a href="<%= project['url']%>"> <%= project['name'] %> </a>
+            <% if Date.parse(project['pushed_at']) > Date.today - config.repo_old_days %>
                 <span class="label success">New</span>
               <% end %>
-              <% if project.is_fork %>
+              <% if project['fork'] %>
                 <span class="label warning">Fork</span>
               <% end %>
-              <span class="description"> <%= project.description %> </span>
+              <span class="description"> <%= project['description'] %> </span>
             </li>
 
           <% end %>
           </ul>
-          <h2> Other stuff </h2>
-          <ul>
-            <li> My <a href="http://iem.pw.edu.pl/~turekb/cv.pdf">CV</a> (polish) </li>
-          <ul>
+          <% config.sections.each do |section| %>
+            <h2> <%= section['name'] %> </h2>
+            <ul>
+            <% section['items'].each do |item| %>
+              <li> <%= item %> </li>
+            <% end %>
+            </ul>
+          <% end %>
         </div>
       </div>
     </div>
