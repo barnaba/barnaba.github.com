@@ -32,7 +32,7 @@ end
 
 config = SiteConfig.new('site.yml')
   
-projects = ('http://github.com/api/v2/json/repos/show/barnaba'.to_uri.get.deserialise)['repositories']
+projects = (('http://github.com/api/v2/json/repos/show/' + config.username).to_uri.get.deserialise)['repositories']
 projects.sort! {|a, b| Date.parse(b['pushed_at']) - Date.parse(a['pushed_at'])}
 projects = projects.select { |p| not config.ignored.include? p['name'] }
 
