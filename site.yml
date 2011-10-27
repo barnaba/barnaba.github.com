@@ -1,0 +1,15 @@
+fullname: "Barnaba Turek"
+repo: "http://github.com/barnaba"
+repo_old_days: 10
+ignored:
+  - "barnaba.github.com"
+buttons:
+  - '<a rel="author" href="https://profiles.google.com/BarnabaTurek"> <img src="http://www.google.com/images/icons/ui/gprofile_button-44.png" width="36" height="36"> </a>'
+  - '<a rel="author" href="http://www.reddit.com/r/barnaba"> <img src="http://www.reddit.com/static/blog_snoo.gif" width="36" height="49"> </a>'
+  - '<a href="http://www.twitter.com/barnex"><img src="http://twitter-badges.s3.amazonaws.com/t_logo-c.png" alt="Follow barnex on Twitter"/></a>'
+sections:
+  - {
+    name: "Other stuff",
+    items:
+      - 'My <a href="http://iem.pw.edu.pl/~turekb/cv.pdf">CV</a> (polish)'
+    }
