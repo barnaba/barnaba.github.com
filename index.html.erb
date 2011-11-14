@@ -37,13 +37,15 @@
 
           <% end %>
           </ul>
-          <% config.sections.each do |section| %>
-            <h2> <%= section['name'] %> </h2>
-            <ul>
-            <% section['items'].each do |item| %>
-              <li> <%= item %> </li>
+          <% unless config.sections.nil? %>
+            <% config.sections.each do |section| %>
+              <h2> <%= section['name'] %> </h2>
+              <ul>
+              <% section['items'].each do |item| %>
+                <li> <%= item %> </li>
+              <% end %>
+              </ul>
             <% end %>
-            </ul>
           <% end %>
         </div>
       </div>
