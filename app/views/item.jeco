@@ -1,0 +1,13 @@
+<li>
+  <a href="<%= @url %>"> <%= @name %></a>
+
+  <% if @fork: %>
+    <span class="label warning">Fork</span>
+  <% end %>
+
+  <% if @new: %>
+    <span class="label success">New</span>
+  <% end %>
+
+  <span class="description"> <%= @description %> </span>
+</li>
